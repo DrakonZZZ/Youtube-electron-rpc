@@ -1,6 +1,9 @@
 const { app, BrowserWindow, Menu } = require('electron/main');
-const connectorRPC = require('./scripts/connector');
+const { Client } = require('discord-rpc');
+const ytData = require('./scripts/yt-data');
 
+const rpc = new Client({ transport: 'ipc' });
+const clientId = '623558135994384437';
 // const pageLoad = __dirname + 'index.html';
 
 let win,
@@ -22,6 +25,24 @@ let win,
     height: 600,
   };
 
+const connectorRPC = (attempt = 0) => {
+  if (attempt >= 5) {
+    win.webContents.executeJavaScript(connectionStatus);
+    return;
+  }
+  attempt += 1;
+  rpc
+    .login({ clientId })
+    .catch((e) => setTimeout(() => connectorRPC(attempt), 10e4));
+};
+
+const checkYtData = async () => {
+  if (!rpc || !win) return;
+  let data = await ytData(win);
+  console.log(data);
+  rpc.setActivity(data);
+};
+
 // creating a main window
 const createWindow = () => {
   //main window
@@ -40,13 +61,20 @@ const createWindow = () => {
       winModal.loadURL(url);
     }
   });
+
   win.openDevTools();
   Menu.setApplicationMenu(null);
 
   win.loadURL('https://www.youtube.com');
-  console.log('working');
   connectorRPC();
 };
+
+rpc.on('ready', () => {
+  checkYtData();
+  setInterval(() => {
+    checkYtData();
+  }, 5e3);
+});
 
 app.on('ready', () => {
   createWindow();
@@ -60,5 +88,3 @@ app.on('window-all-closed', () => {
 });
 
 app.releaseSingleInstanceLock();
-
-module.exports = win;
