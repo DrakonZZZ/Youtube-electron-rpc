@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron/main');
+const { app, BrowserWindow, Menu, session } = require('electron/main');
 const { Client } = require('discord-rpc');
 const ytData = require('./scripts/yt-data');
 
@@ -39,7 +39,6 @@ const connectorRPC = (attempt = 0) => {
 const checkYtData = async () => {
   if (!rpc || !win) return;
   const data = await ytData(win);
-  console.log(data);
   rpc.setActivity(data);
 };
 
@@ -47,6 +46,14 @@ const createWindow = () => {
   win = new BrowserWindow(winSettings);
   winModal = new BrowserWindow(winModalSetting);
   winModal.hide();
+
+  win.on('closed', () => {
+    app.quit();
+  });
+
+  winModal.on('closed', () => {
+    app.quit();
+  });
 
   win.webContents.on('will-navigate', (e, url) => {
     const uri = new URL(url).host;
@@ -57,7 +64,7 @@ const createWindow = () => {
     }
   });
 
-  win.openDevTools();
+  // win.openDevTools();
   Menu.setApplicationMenu(null);
   win.loadURL('https://www.youtube.com');
   connectorRPC();
@@ -65,17 +72,33 @@ const createWindow = () => {
 
 rpc.on('ready', () => {
   checkYtData();
-  setInterval(checkYtData, 5e3);
+  setInterval(checkYtData, 6e4);
 });
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  session.defaultSession
+    .loadExtension(__dirname + '/scripts/ad_block')
+    .then(({ cmedhionkhpnakcndndgjdbohmhepckk }) => createWindow());
+});
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+app.on('second-instance', () => {
+  if (win) {
+    if (win.isMinimized()) {
+      win.restore();
+      return;
+    }
+    win.focus();
+  }
 });
 
-app.releaseSingleInstanceLock();
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.requestSingleInstanceLock();
