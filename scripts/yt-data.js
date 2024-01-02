@@ -1,5 +1,5 @@
 const { videoDivData } = require('./fetcher');
-const { rpcInfo, ytPause, ytPlay } = require('./rpcInfo');
+const { rpcInfo, ytPause, ytPlay, rpcReset } = require('./rpcInfo');
 const moment = require('moment');
 
 hasSkipped = false;
@@ -42,28 +42,19 @@ const ytData = async (win) => {
           rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author;
         }
         rpcInfo.details = videoName;
-        rpcInfo.buttons = [{ label: 'Video Link', url: videoUrl }];
+        rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }];
       }
     } else {
-      rpcReset();
+      rpcReset(win);
     }
   } else {
-    rpcReset();
+    rpcReset(win);
   }
   if (global.hasSeeked) {
     global.hasSeeked = false;
     return rpcInfo;
   } else {
     return rpcInfo;
-  }
-};
-
-const rpcReset = () => {
-  rpcInfo.details = 'Browsing';
-  rpcInfo.state = 'Looking through video page';
-  rpcInfo.smallImageKey = 'yt_small';
-  if (rpcInfo.buttons) {
-    delete rpcInfo.buttons;
   }
 };
 
