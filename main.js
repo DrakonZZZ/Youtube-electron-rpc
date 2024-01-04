@@ -3,6 +3,7 @@ const { Client } = require('discord-rpc');
 const ytData = require('./scripts/yt-data');
 
 const rpc = new Client({ transport: 'ipc' });
+//change this to your discord clientId to have your own RPC
 const clientId = '623558135994384437';
 
 const winSettings = {
@@ -57,7 +58,9 @@ const createWindow = () => {
     }
   });
 
+  // for debugging panel
   win.openDevTools();
+  
   Menu.setApplicationMenu(null);
   win.loadURL('https://www.youtube.com');
   connectorRPC();
@@ -65,6 +68,7 @@ const createWindow = () => {
 
 rpc.on('ready', () => {
   checkYtData();
+  // have it set at 5s to update on discord status 
   setInterval(checkYtData, 5e3);
 });
 
