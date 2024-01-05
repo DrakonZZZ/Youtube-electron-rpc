@@ -10,7 +10,7 @@ const ytPause = (rpcInfo) => {
   rpcInfo.smallImageKey = 'pause';
   rpcInfo.smallImageText = 'Paused';
 };
-
+//{add custom images for each thumbnail}
 const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
   rpcInfo.details = videoName;
   rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author;
@@ -19,6 +19,8 @@ const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
   rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }];
 };
 
+
+//need to add more status for each url change
 const rpcReset = (win) => {
   const url = win.webContents.getURL();
   rpcInfo.details = 'Browsing';
