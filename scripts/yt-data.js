@@ -1,18 +1,14 @@
-const { videoDivData } = require('./fetcher');
+const { videoDivData, thumbnailId } = require('./fetcher');
 const { rpcInfo, ytPause, ytPlay, rpcReset } = require('./rpcInfo');
 const moment = require('moment');
 
 hasSkipped = false;
 
 const ytData = async (win) => {
-  console.log(win);
-  if (!win) {
-    return;
-  }
-
   try {
     let ytVideoData = await win.webContents.executeJavaScript(videoDivData);
-
+    const thumbImg = await win.webContents.executeJavaScript(thumbnailId);
+    console.log(thumbImg);
     if (ytVideoData) {
       let {
         videoName,

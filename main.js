@@ -39,6 +39,7 @@ const connectorRPC = (attempt = 0) => {
 const checkYtData = async () => {
   if (!rpc || !win) return;
   const data = await ytData(win);
+  console.log(data);
   rpc.setActivity(data);
 };
 
@@ -47,13 +48,7 @@ const createWindow = () => {
   winModal = new BrowserWindow(winModalSetting);
   winModal.hide();
 
-  win.on('closed', () => {
-    app.quit();
-  });
-
-  winModal.on('closed', () => {
-    app.quit();
-  });
+  win.webContents.openDevTools();
 
   win.webContents.on('will-navigate', (e, url) => {
     const uri = new URL(url).host;
@@ -64,6 +59,14 @@ const createWindow = () => {
     }
   });
 
+  win.on('closed', () => {
+    app.quit();
+  });
+
+  winModal.on('closed', () => {
+    app.quit();
+  });
+
   // win.openDevTools();
   Menu.setApplicationMenu(null);
   win.loadURL('https://www.youtube.com');
@@ -72,7 +75,7 @@ const createWindow = () => {
 
 rpc.on('ready', () => {
   checkYtData();
-  setInterval(checkYtData, 6e4);
+  setInterval(checkYtData, 6e3);
 });
 
 app.on('ready', () => {

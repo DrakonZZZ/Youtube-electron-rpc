@@ -19,8 +19,9 @@ const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
   rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }];
 };
 
-const rpcReset = (win) => {
+const rpcReset = async (win) => {
   const url = win.webContents.getURL();
+
   rpcInfo.details = 'Browsing';
   rpcInfo.state = 'Homepage';
   rpcInfo.smallImageKey = 'small-thumbpng';
