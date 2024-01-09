@@ -8,7 +8,7 @@ const ytData = async (win) => {
   try {
     let ytVideoData = await win.webContents.executeJavaScript(videoDivData);
     const thumbImg = await win.webContents.executeJavaScript(thumbnailId);
-    console.log(thumbImg);
+
     if (ytVideoData) {
       let {
         videoName,
@@ -33,6 +33,7 @@ const ytData = async (win) => {
             global.videoCurrentTimeTemp = Math.floor(endTimestamp);
 
             rpcInfo.endTimestamp = endTimestamp;
+            rpcInfo.largeImageKey = thumbImg ? thumbImg : 'youtube-main';
             ytPlay(rpcInfo, videoName, author, videoUrl);
           } else {
             ytPause(rpcInfo);

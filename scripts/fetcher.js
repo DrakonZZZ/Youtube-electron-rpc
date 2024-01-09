@@ -43,10 +43,7 @@ const thumbnailId = `(function() {
     try {
       const  imgDiv= document.getElementById("owner");
       const imgElement = imgDiv.querySelector('img');
-      if (imgElement) {
-        console.log(imgElement);
-      }
-      return thumbImg ? thumbImg.src : null;
+      return imgElement ? imgElement.src : null;
     } catch (error) {}
   })()`;
 

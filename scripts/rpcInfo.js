@@ -21,12 +21,12 @@ const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
 
 const rpcReset = async (win) => {
   const url = win.webContents.getURL();
+  const thumbImg = await win.webContents.executeJavaScript(thumbnailId);
 
   rpcInfo.details = 'Browsing';
   rpcInfo.state = 'Homepage';
   rpcInfo.smallImageKey = 'small-thumbpng';
-
-  console.log(url);
+  rpcInfo.largeImageKey = thumbImg ? thumbImg : 'youtube-main';
 
   const pathname = new URL(url).pathname;
   const parts = pathname.split('/');
