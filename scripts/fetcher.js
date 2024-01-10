@@ -47,4 +47,23 @@ const thumbnailId = `(function() {
     } catch (error) {}
   })()`;
 
-module.exports = { videoDivData, tempVideoCurrentTime, thumbnailId };
+const channelDetail = `(function() {
+  try {
+    const detailDiv = document.getElementById("channel-header-container");
+    const subCount = detailDiv.querySelector('#subscriber-count').innerText;
+    const imgElement = detailDiv.querySelector('img');
+
+    return {
+      subCount: subCount,
+      imgElement: imgElement.src ? imgElement.src : null
+    };
+  } catch (error) {}
+})()
+`;
+
+module.exports = {
+  videoDivData,
+  tempVideoCurrentTime,
+  thumbnailId,
+  channelDetail,
+};

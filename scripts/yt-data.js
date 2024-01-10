@@ -54,6 +54,7 @@ const ytData = async (win) => {
     } else {
       rpcReset(win);
     }
+    
     if (global.hasSeeked) {
       global.hasSeeked = false;
       return rpcInfo;

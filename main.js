@@ -38,7 +38,7 @@ const connectorRPC = (attempt = 0) => {
 
 const checkYtData = async () => {
   if (!rpc || !win) return;
-  const data = await ytData(win);
+  data = await ytData(win);
   console.log(data);
   rpc.setActivity(data);
 };
@@ -75,7 +75,7 @@ const createWindow = () => {
 
 rpc.on('ready', () => {
   checkYtData();
-  setInterval(checkYtData, 6e3);
+  setInterval(checkYtData, 5e3);
 });
 
 app.on('ready', () => {
