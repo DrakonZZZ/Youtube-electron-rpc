@@ -39,4 +39,12 @@ let videoDivData = `(function(){
   return null
   })()`;
 
-module.exports = { videoDivData, tempVideoCurrentTime };
+const thumbnailId = `(function() {
+    try {
+      const  imgDiv= document.getElementById("owner");
+      const imgElement = imgDiv.querySelector('img');
+      return imgElement ? imgElement.src : null;
+    } catch (error) {}
+  })()`;
+
+module.exports = { videoDivData, tempVideoCurrentTime, thumbnailId };
