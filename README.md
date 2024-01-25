@@ -1,4 +1,4 @@
-# YouTube Discord RPC Electron App (WIP)
+# YouTube Discord RPC Electron App
 
 This Electron app integrates Discord Rich Presence functionality to display YouTube video details in your Discord status.
 
@@ -36,8 +36,9 @@ This application uses Electron to create a standalone desktop app that renders t
    you can compile the .exe using
    
    ```
-   npm run make
+   npm run make or npm run package
    ```
+   download the exe from here : https://github.com/DrakonZZZ/youtube-electron-rpc/releases
 3. The app window opens and displays the YouTube website.
 4. The app updates your Discord status with YouTube video details.
 
