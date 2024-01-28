@@ -82,9 +82,7 @@ rpc.on('ready', () => {
 });
 
 app.on('ready', () => {
-  session.defaultSession
-    .loadExtension(__dirname + '/scripts/ad_block')
-    .then(({ cmedhionkhpnakcndndgjdbohmhepckk }) => createWindow());
+createWindow();
 });
 
 app.on('activate', () => {
