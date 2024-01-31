@@ -46,6 +46,9 @@ This application uses Electron to create a standalone desktop app that renders t
 
 - Modify the window size, settings, or YouTube URL in the `windowHandler.js` file to suit your preferences.
 - You can change the discord Large image icon by having your own discord developer portal [https://discord.com/developers/docs/intro](https://discord.com/developers/applications) application and change the clientId in main.js
+
+##Customization
+- Change your discord presence image in rpcInfo.js file 
 ## Contributing
 
 Contributions are welcome! Fork the repository and create a pull request for any enhancements or fixes.
