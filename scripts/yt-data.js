@@ -42,6 +42,7 @@ const ytData = async (win) => {
           videoName = '[🔴]LIVE - ' + videoName;
           if (!videoPaused) {
             rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author;
+            rpcInfo.smallImageKey = 'live';
           } else {
             rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author;
           }

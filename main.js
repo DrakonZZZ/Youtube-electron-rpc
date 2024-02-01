@@ -24,38 +24,15 @@ const connectorRPC = (attempt = 0) => {
     .catch(() => setTimeout(() => connectorRPC(attempt), 10e4));
 };
 
-let previousData = null;
-
 const checkYtData = async () => {
   if (!rpc || !win) return;
   try {
-    const newData = await ytData(win);
-    logTimeStamp(newData);
-
-    if (!previousData || !compareObjects(newData, previousData)) {
-      rpc.setActivity(newData);
-      previousData = { ...newData };
-    }
+    const data = await ytData(win);
+    console.log(data);
+    rpc.setActivity(data);
   } catch (error) {
     console.error('Error retrieving YouTube data:', error);
   }
-};
-
-const compareObjects = (obj1, obj2) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-
-  if (keys1.length !== keys2.length) {
-    return false;
-  }
-
-  for (let key of keys1) {
-    if (obj1[key] !== obj2[key]) {
-      return false;
-    }
-  }
-
-  return true;
 };
 
 const createWindow = () => {
