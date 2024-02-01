@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    icon: '/assets/yt.png',
+    icon: './assets/icon.ico',
     asar: true,
   },
   rebuildConfig: {},
@@ -8,14 +8,14 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        setupIcon: '/assets/yt.png',
+        setupIcon: './assets/icon.ico',
       },
     },
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
       config: {
-        icon: '/assets/yt.png',
+        icon: './assets/icon.ico',
       },
     },
     {
