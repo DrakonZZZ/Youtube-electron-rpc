@@ -1,23 +1,33 @@
 const { channelDetail } = require('./fetcher');
+const {
+  featuredRegex,
+  channelRegex,
+  videosRegex,
+  ShortsRegex,
+  playlistRegex,
+  streamRegex,
+  searchRegex,
+} = require('./utils/regex');
+const logTimeStamp = require('./utils/timestamp');
 
 const rpcInfo = {
   largeImageKey: 'youtube-main',
   largeImageText: 'Youtube',
   smallImageKey: 'small-thumbpng',
-  smallImageText: 'Opened in electron app',
+  smallImageText: 'Youtube',
 };
 
 const ytPause = (rpcInfo) => {
   delete rpcInfo.endTimestamp;
-  rpcInfo.smallImageKey = 'pause';
-  rpcInfo.smallImageText = 'Paused';
+  rpcInfo.smallImageKey = 'youtube-main';
+  rpcInfo.smallImageText = 'pause';
 };
 
 const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
   rpcInfo.details = videoName;
   rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author;
-  rpcInfo.smallImageKey = 'play';
-  rpcInfo.smallImageText = 'Playing';
+  rpcInfo.smallImageKey = 'yt-3play';
+  rpcInfo.smallImageText = 'play';
   rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }];
 };
 
@@ -38,48 +48,44 @@ const rpcReset = async (win) => {
 
   rpcInfo.details = 'Browsing';
   rpcInfo.state = 'Homepage';
-  rpcInfo.smallImageKey = 'small-thumbpng';
-  rpcInfo.largeImageKey = channelInfo.imgElement
+  //rpcInfo.smallImageKey = '';
+
+  rpcInfo.largeImageKey = channelInfo?.imgElement
     ? channelInfo.imgElement
     : 'youtube-main';
 
-  const channelRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+$/;
-  const featuredRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+\/channel$/;
-  const ShortsRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+\/shorts$/;
-  const videosRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+\/videos$/;
-  const playlistRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+\/playlists$/;
-  const streamRegex = /^https:\/\/www\.youtube\.com\/@[\w-]+\/streams$/;
-  const searchRegex = /^https:\/\/www\.youtube\.com\/results\?search_query/;
+  logTimeStamp(url);
 
   switch (true) {
     case featuredRegex.test(url):
       rpcInfo.state = `${channelName}\ Featured videos`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case channelRegex.test(url):
       rpcInfo.state = `${channelName}\ Channel`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case videosRegex.test(url):
       rpcInfo.state = `${channelName}\ Videos`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case ShortsRegex.test(url):
       rpcInfo.state = `${channelName}\ Shorts`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case playlistRegex.test(url):
       rpcInfo.state = `${channelName}\ Playlist`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case streamRegex.test(url):
       rpcInfo.state = `${channelName}\ streams`;
-      assignButtons(rpcInfo, channelInfo.subCount, url);
+      assignButtons(rpcInfo, channelInfo?.subCount, url);
       break;
     case searchRegex.test(url): {
       const searchParams = new URLSearchParams(new URL(url).search);
       const query = searchParams.get('search_query');
       rpcInfo.state = `searching for ${query}`;
+      rpcInfo.largeImageKey = 'youtube-main';
       break;
     }
     default:
