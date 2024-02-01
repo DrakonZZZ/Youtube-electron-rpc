@@ -11,7 +11,8 @@
   "keywords": [
     "RPC",
     "discord",
-    "youtube"
+    "youtube",
+    "electron",
   ],
   "author": "Drakonz",
   "license": "MIT",
@@ -24,7 +25,10 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
     "electron": "^28.1.0"
   },
-  "homepage": "https://github.com/DrakonZZZ",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DrakonZZZ/youtube-electron-rpc"
+  },
   "dependencies": {
     "discord-rpc": "^4.0.1",
     "electron-squirrel-startup": "^1.0.0",

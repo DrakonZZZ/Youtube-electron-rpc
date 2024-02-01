@@ -10,6 +10,7 @@ const {
 } = require('./utils/regex');
 const logTimeStamp = require('./utils/timestamp');
 
+// options {  largeImageKey: '',largeImageText: '',smallImageKey: '',smallImageText: '',startTimestamp: optional, endrTimeStamp:optional, buttons: []};
 const rpcInfo = {
   largeImageKey: 'youtube-main',
   largeImageText: 'Youtube',
