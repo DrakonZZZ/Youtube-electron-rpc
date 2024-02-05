@@ -12,6 +12,8 @@ This application uses Electron to create a standalone desktop app that renders t
 - Integrates with Discord Rich Presence to show video details as your Discord status.
 - Customizable window size and settings.
 
+Application .exe can be found [here](https://github.com/DrakonZZZ/youtube-electron-rpc/releases)
+
 ## Prerequisites
 
 - node.js installed on your machine.
