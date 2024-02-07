@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/DrakonZZZ/youtube-electron-rpc/main/assets/icon_1.png)
+
 # YouTube Discord RPC Electron App
 
 This Electron app integrates Discord Rich Presence functionality to display YouTube video details in your Discord status.
