@@ -32,6 +32,7 @@ const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
 };
 
 const assignButtons = (rpcInfo, subCount, url) => {
+  console.log(`subcount: ${subCount} and url: ${url}`);
   return (rpcInfo.buttons = [
     { label: 'Channel', url },
     { label: subCount, url },
