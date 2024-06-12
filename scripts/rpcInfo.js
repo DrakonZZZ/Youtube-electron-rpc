@@ -93,6 +93,7 @@ const rpcReset = async (win) => {
     default:
       rpcInfo.state = url
       rpcInfo.largeImageKey = 'youtube-main'
+      rpcInfo.smallImageKey = 'small-thumbpng'
       delete rpcInfo.buttons
       break
   }
