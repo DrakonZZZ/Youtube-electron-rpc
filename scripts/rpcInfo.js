@@ -21,22 +21,25 @@ const rpcInfo = {
 const ytPause = (rpcInfo) => {
   delete rpcInfo.endTimestamp
   rpcInfo.smallImageKey = 'yt-3pause'
-  rpcInfo.smallImageText = 'pause'
+  rpcInfo.smallImageText = 'Paused'
 }
 
-const ytPlay = (rpcInfo, videoName, author, videoUrl) => {
+const ytPlay = (rpcInfo, videoName, author, videoUrl, viewCount) => {
   rpcInfo.details = videoName
   rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author
   rpcInfo.smallImageKey = 'yt-3play'
-  rpcInfo.smallImageText = 'play'
-  rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }]
+  rpcInfo.smallImageText = 'Playing...'
+  rpcInfo.buttons = [
+    { label: 'Views: ' + viewCount, url: videoUrl },
+    { label: 'Watch', url: videoUrl },
+  ]
 }
 
-const assignButtons = (rpcInfo, subCount, url) => {
+const assignButtons = (rpcInfo, subCount, channelTag, url) => {
   console.log(`subcount: ${subCount} and url: ${url}`)
   return (rpcInfo.buttons = [
-    { label: 'Channel', url },
-    { label: subCount, url },
+    { label: channelTag, url },
+    { label: subCount + ' • subscribers', url },
   ])
 }
 
@@ -58,36 +61,40 @@ const rpcReset = async (win) => {
 
   logTimeStamp(url)
 
+  let channelSubs = channelInfo?.subCount
+  let channelTag = channelInfo?.channelName
+
   switch (true) {
     case featuredRegex.test(url):
-      rpcInfo.state = `${channelName}\ Featured videos`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • Featured videos`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case channelRegex.test(url):
-      rpcInfo.state = `${channelName}\ Channel`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • Channel`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case videosRegex.test(url):
-      rpcInfo.state = `${channelName}\ Videos`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • Videos`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case ShortsRegex.test(url):
-      rpcInfo.state = `${channelName}\ Shorts`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • Shorts`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case playlistRegex.test(url):
-      rpcInfo.state = `${channelName}\ Playlist`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • Playlist`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case streamRegex.test(url):
-      rpcInfo.state = `${channelName}\ streams`
-      assignButtons(rpcInfo, channelInfo?.subCount, url)
+      rpcInfo.state = `${channelName} • streams`
+      assignButtons(rpcInfo, channelSubs, channelTag, url)
       break
     case searchRegex.test(url): {
       const searchParams = new URLSearchParams(new URL(url).search)
       const query = searchParams.get('search_query')
       rpcInfo.state = `searching for ${query}`
       rpcInfo.largeImageKey = 'youtube-main'
+      delete rpcInfo.buttons
       break
     }
     default:

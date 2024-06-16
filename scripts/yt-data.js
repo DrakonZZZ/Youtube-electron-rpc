@@ -19,7 +19,9 @@ const ytData = async (win) => {
         videoCurrentTime,
         isLive,
         videoPaused,
+        viewCount,
       } = ytVideoData
+
       if (videoLength && videoCurrentTime) {
         if (!isLive) {
           if (!videoPaused) {
@@ -36,7 +38,7 @@ const ytData = async (win) => {
             rpcInfo.endTimestamp = endTimestamp
             let thumbnailUrl = getId(videoUrl, thumbImg)
             rpcInfo.largeImageKey = thumbnailUrl
-            ytPlay(rpcInfo, videoName, author, videoUrl)
+            ytPlay(rpcInfo, videoName, author, videoUrl, viewCount)
           } else {
             ytPause(rpcInfo)
           }
@@ -49,7 +51,10 @@ const ytData = async (win) => {
             rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author
           }
           rpcInfo.details = videoName
-          rpcInfo.buttons = [{ label: 'Watch', url: videoUrl }]
+          rpcInfo.buttons = [
+            { label: viewCount },
+            { label: 'Watch', url: videoUrl },
+          ]
         }
       } else {
         rpcReset(win)
