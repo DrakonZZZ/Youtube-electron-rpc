@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu } = require('electron/main')
 const { Client } = require('discord-rpc')
-const ytData = require('./scripts/yt-data')
+const ytData = require('./scripts/yt-main')
 const {
   winSettings,
   winModalSetting,
