@@ -21,7 +21,7 @@ const regexPattern = (channelName, url) => [
       return `𝗦𝗲𝗮𝗿𝗰𝗵𝗶𝗻𝗴 𝗳𝗼𝗿: ${query}`
     },
     largeImageKey: 'youtube-main',
-    details: 'Search query',
+    details: 'Search results',
     buttons: null,
   },
 ]

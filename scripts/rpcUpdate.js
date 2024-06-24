@@ -14,7 +14,7 @@ const updateRpcInfo = async (win) => {
 
     rpcInfo.details = 'Browsing'
     rpcInfo.state = 'Homepage'
-    rpcInfo.largeImageKey = channelInfo?.imgElement || 'youtube-main'
+    rpcInfo.largeImageKey = channelInfo?.imgElement || 'yt-3'
 
     logTimeStamp(url)
 
@@ -43,8 +43,8 @@ const updateRpcInfo = async (win) => {
 
     if (!matched) {
       rpcInfo.state = url
-      rpcInfo.largeImageKey = 'youtube-main'
-      rpcInfo.smallImageKey = 'small-thumbpng'
+      rpcInfo.largeImageKey = 'yt-3'
+      rpcInfo.smallImageKey = 'skullypng'
       delete rpcInfo.buttons
     }
 

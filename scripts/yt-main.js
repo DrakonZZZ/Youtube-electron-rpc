@@ -68,7 +68,7 @@ const ytData = async (win) => {
           return rpcInfo
         }
       } else {
-        rpcReset(win)
+        rpcUpdate(win)
       }
     } else {
       updateRpcForLiveVideo(ytVideoData)

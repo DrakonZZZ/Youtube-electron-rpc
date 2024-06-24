@@ -60,7 +60,8 @@ const createWindow = () => {
     app.quit()
   })
 
-  win.openDevTools()
+  // chrome dev tool panel
+  // win.openDevTools()
   Menu.setApplicationMenu(null)
   win.loadURL('https://www.youtube.com')
   connectorRPC()

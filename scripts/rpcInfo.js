@@ -1,21 +1,21 @@
 // options {  largeImageKey: '',largeImageText: '',smallImageKey: '',smallImageText: '',startTimestamp: optional, endrTimeStamp:optional, buttons: []};
 const rpcInfo = {
-  largeImageKey: 'youtube-main',
+  largeImageKey: 'yt-3',
   largeImageText: 'Youtube',
-  smallImageKey: 'small-thumbpng',
+  smallImageKey: 'skullypng',
   smallImageText: 'Youtube',
 }
 
 const ytPause = (rpcInfo) => {
   delete rpcInfo.endTimestamp
-  rpcInfo.smallImageKey = 'yt-3pause'
+  rpcInfo.smallImageKey = 'pause'
   rpcInfo.smallImageText = 'Paused'
 }
 
 const ytPlay = (rpcInfo, videoName, author, videoUrl, viewCount) => {
   rpcInfo.details = videoName
   rpcInfo.state = '𝗖𝗵𝗮𝗻𝗻𝗲𝗹: ' + author
-  rpcInfo.smallImageKey = 'yt-3play'
+  rpcInfo.smallImageKey = 'play'
   rpcInfo.smallImageText = 'Playing...'
   rpcInfo.buttons = [
     { label: 'Views: ' + viewCount, url: videoUrl },
