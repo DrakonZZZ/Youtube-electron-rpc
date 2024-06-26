@@ -1,21 +1,22 @@
 const channelDetail = `(function() {
   try {
-    const detailDiv = document.querySelector(".page-header-view-model-wiz__page-header-headline");
+    const detailDiv = document.querySelector("#channel-header-container");
     if (!detailDiv) {
       throw new Error("Detail div not found");
     }
 
-    const imgElement = detailDiv.querySelector("img").src;
+    const imgElement = detailDiv.querySelector("#avatar #img").src;
 
-    const metadataRows = detailDiv.querySelectorAll(".yt-content-metadata-view-model-wiz__metadata-text[role='text']");
-    const subCount = metadataRows[1].innerText.split(' ')[0];
+    const subCountElement = detailDiv.querySelector("#subscriber-count");
+    const subCount = subCountElement ? subCountElement.innerText.split(' ')[0] : null;
 
-    const channelName = detailDiv.querySelector(".yt-content-metadata-view-model-wiz__metadata-text[role='text']").innerText.split(' ')[0];
+    const channelNameElement = detailDiv.querySelector("#channel-name #text");
+    const channelName = channelNameElement ? channelNameElement.innerText : null;
 
     return {
       subCount: subCount,
       imgElement: imgElement ? imgElement : null,
-      channelName
+      channelName: channelName
     };
   } catch (error) {
     console.error("Error extracting channel details:", error);
@@ -23,7 +24,7 @@ const channelDetail = `(function() {
   }
 })()`
 
-const videoDivData = `(function(){
+const videoDivData = `(function() {
   try {
     let win = document.title;
     let playerId = document.getElementById("movie_player");
@@ -49,9 +50,7 @@ const videoDivData = `(function(){
     }
 
     const spans = infoElement.querySelectorAll("span");
-    const viewCount = spans[0].innerText.split(' ')[0];
-
-
+    const viewCount = spans[0].innerText;
     return {
       videoName,
       author,

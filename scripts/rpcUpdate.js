@@ -15,6 +15,10 @@ const updateRpcInfo = async (win) => {
     rpcInfo.details = 'Browsing'
     rpcInfo.state = 'Homepage'
     rpcInfo.largeImageKey = channelInfo?.imgElement || 'yt-3'
+    rpcInfo.smallImageKey = 'skullypng'
+    rpcInfo.smallImageText = channelInfo?.subCount
+      ? channelInfo.subCount
+      : 'youtube'
 
     logTimeStamp(url)
 
